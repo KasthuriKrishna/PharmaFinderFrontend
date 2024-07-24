@@ -1,0 +1,132 @@
+body.listbody{
+    font-family: Arial, sans-serif;
+    background: url('https://img.freepik.com/free-photo/medicine-blue-background-top-view_23-2149341572.jpg') no-repeat center center fixed; /* Adjust the path as needed */
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .create-list-container {
+    margin-left: 350px;
+    margin-top: 20px;
+    background-color: rgba(209, 205, 207, 0.9); /* Semi-transparent background */
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  width: 55vw; /* Fixed width: 80% of the viewport width */
+  height: 65vh; /* Fixed height: 60% of the viewport height */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* Optional: to limit the max width on very large screens */
+  }
+  
+  header h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #00796b;
+  }
+  
+  .search-bar {
+    width: 100%;
+    padding: 10px;
+    margin: 20px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .suggestions {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    max-height: 150px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .suggestions li {
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .suggestions li:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .selected-medicines {
+    margin-top: 20px;
+    text-align: left;
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+  
+  .medicine-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .medicine-item span {
+    flex-grow: 1;
+  }
+  
+  .medicine-item select {
+    margin-left: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .quantity-controls {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+  }
+  
+  .quantity-controls button {
+    background-color: #00796b;
+    color: #fff;
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .quantity-controls span {
+    margin: 0 5px;
+  }
+  
+  .search-button {
+    background-color: #00796b;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .search-results {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0 0;
+  }
+  
+  .search-results li {
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  
+  .search-results h3 {
+    margin: 0;
+  }
+  
+  footer p {
+    font-size: 14px;
+    color: #00796b;
+    margin-top: 20px;
+  }
+  

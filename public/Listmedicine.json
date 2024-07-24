@@ -1,0 +1,103 @@
+[
+    {
+      "name": "Aspirin",
+      "dosages": ["100mg", "300mg"],
+      "brands": ["Bayer", "Bufferin"]
+    },
+    {
+      "name": "Ibuprofen",
+      "dosages": ["200mg", "400mg", "600mg"],
+      "brands": ["Advil", "Motrin"]
+    },
+    {
+      "name": "Paracetamol",
+      "dosages": ["500mg", "650mg"],
+      "brands": ["Tylenol", "Panadol"]
+    },
+    {
+      "name": "Amoxicillin",
+      "dosages": ["250mg", "500mg"],
+      "brands": ["Amoxil", "Trimox"]
+    },
+    {
+      "name": "Ciprofloxacin",
+      "dosages": ["250mg", "500mg"],
+      "brands": ["Cipro", "Cetraxal"]
+    },
+    {
+      "name": "Metformin",
+      "dosages": ["500mg", "850mg", "1000mg"],
+      "brands": ["Glucophage", "Fortamet"]
+    },
+    {
+      "name": "Atorvastatin",
+      "dosages": ["10mg", "20mg", "40mg"],
+      "brands": ["Lipitor", "Sortis"]
+    },
+    {
+      "name": "Omeprazole",
+      "dosages": ["20mg", "40mg"],
+      "brands": ["Prilosec", "Losec"]
+    },
+    {
+      "name": "Simvastatin",
+      "dosages": ["10mg", "20mg", "40mg"],
+      "brands": ["Zocor", "Simlup"]
+    },
+    {
+      "name": "Lisinopril",
+      "dosages": ["10mg", "20mg"],
+      "brands": ["Prinivil", "Zestril"]
+    },
+    {
+      "name": "Losartan",
+      "dosages": ["50mg", "100mg"],
+      "brands": ["Cozaar", "Hyzaar"]
+    },
+    {
+      "name": "Hydrochlorothiazide",
+      "dosages": ["12.5mg", "25mg"],
+      "brands": ["Microzide", "Aquazide"]
+    },
+    {
+      "name": "Gabapentin",
+      "dosages": ["100mg", "300mg", "600mg"],
+      "brands": ["Neurontin", "Gralise"]
+    },
+    {
+      "name": "Metoprolol",
+      "dosages": ["25mg", "50mg", "100mg"],
+      "brands": ["Lopressor", "Toprol-XL"]
+    },
+    {
+      "name": "Pantoprazole",
+      "dosages": ["20mg", "40mg"],
+      "brands": ["Protonix", "Somac"]
+    },
+    {
+      "name": "Clopidogrel",
+      "dosages": ["75mg", "300mg"],
+      "brands": ["Plavix", "Clopilet"]
+    },
+    {
+      "name": "Sertraline",
+      "dosages": ["50mg", "100mg"],
+      "brands": ["Zoloft", "Lustral"]
+    },
+    {
+      "name": "Furosemide",
+      "dosages": ["20mg", "40mg"],
+      "brands": ["Lasix", "Furix"]
+    },
+    {
+      "name": "Citalopram",
+      "dosages": ["20mg", "40mg"],
+      "brands": ["Celexa", "Cipramil"]
+    },
+    {
+      "name": "Tramadol",
+      "dosages": ["50mg", "100mg"],
+      "brands": ["Ultram", "Conzip"]
+    }
+  ]
+  

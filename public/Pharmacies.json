@@ -1,0 +1,47 @@
+[
+    {
+      "name": "Pharmacy One",
+      "location": {
+        "street": "123 Main St",
+        "town": "Springfield",
+        "district": "Springfield District",
+        "state": "Example State"
+      },
+      "medicines": ["Aspirin", "Ibuprofen", "Paracetamol"],
+      "workingTime": "9 AM - 9 PM"
+    },
+    {
+      "name": "Pharmacy Two",
+      "location": {
+        "street": "456 Elm St",
+        "town": "Springfield",
+        "district": "Springfield District",
+        "state": "Example State"
+      },
+      "medicines": ["Amoxicillin", "Ciprofloxacin", "Metformin"],
+      "workingTime": "10 AM - 8 PM"
+    },
+    {
+      "name": "Pharmacy Three",
+      "location": {
+        "street": "789 Oak St",
+        "town": "Shelbyville",
+        "district": "Shelbyville District",
+        "state": "Example State"
+      },
+      "medicines": ["Atorvastatin", "Omeprazole", "Simvastatin"],
+      "workingTime": "8 AM - 10 PM"
+    },
+    {
+      "name": "Pharmacy Four",
+      "location": {
+        "street": "101 Pine St",
+        "town": "Springfield",
+        "district": "Springfield District",
+        "state": "Example State"
+      },
+      "medicines": ["Lisinopril", "Losartan", "Hydrochlorothiazide"],
+      "workingTime": "7 AM - 7 PM"
+    }
+  ]
+  
