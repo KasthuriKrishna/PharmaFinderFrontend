@@ -1,0 +1,102 @@
+[
+    {
+      "name": "Body Pain",
+      "tablets": [
+        {
+          "name": "Paracetamol",
+          "description": "Pain reliever and a fever reducer.",
+          "dosage": "500mg, twice a day"
+        },
+        {
+          "name": "Ibuprofen",
+          "description": "Nonsteroidal anti-inflammatory drug.",
+          "dosage": "400mg, three times a day"
+        },
+        {
+          "name": "Aspirin",
+          "description": "Used to reduce pain, fever, or inflammation.",
+          "dosage": "325mg, every 4 hours"
+        },
+        {
+          "name": "Naproxen",
+          "description": "Nonsteroidal anti-inflammatory drug.",
+          "dosage": "250mg, twice a day"
+        }
+      ]
+    },
+    {
+      "name": "Vomiting",
+      "tablets": [
+        {
+          "name": "Ondansetron",
+          "description": "Prevents nausea and vomiting.",
+          "dosage": "4mg, as needed"
+        },
+        {
+          "name": "Metoclopramide",
+          "description": "Treats nausea and vomiting.",
+          "dosage": "10mg, four times a day"
+        },
+        {
+          "name": "Prochlorperazine",
+          "description": "Used to control severe nausea and vomiting.",
+          "dosage": "5mg, three times a day"
+        },
+        {
+          "name": "Domperidone",
+          "description": "Treats nausea and vomiting.",
+          "dosage": "10mg, three times a day"
+        }
+      ]
+    },
+    {
+      "name": "Fever",
+      "tablets": [
+        {
+          "name": "Paracetamol",
+          "description": "Reduces fever and relieves pain.",
+          "dosage": "500mg, every 4-6 hours"
+        },
+        {
+          "name": "Ibuprofen",
+          "description": "Reduces fever and inflammation.",
+          "dosage": "200mg, every 4-6 hours"
+        },
+        {
+          "name": "Aspirin",
+          "description": "Reduces fever and relieves pain.",
+          "dosage": "325mg, every 4-6 hours"
+        },
+        {
+          "name": "Naproxen",
+          "description": "Reduces fever and inflammation.",
+          "dosage": "250mg, twice a day"
+        }
+      ]
+    },
+    {
+      "name": "Cold",
+      "tablets": [
+        {
+          "name": "Pseudoephedrine",
+          "description": "Relieves nasal congestion.",
+          "dosage": "60mg, every 4-6 hours"
+        },
+        {
+          "name": "Diphenhydramine",
+          "description": "Relieves allergy symptoms.",
+          "dosage": "25mg, every 4-6 hours"
+        },
+        {
+          "name": "Cetirizine",
+          "description": "Relieves allergy symptoms.",
+          "dosage": "10mg, once a day"
+        },
+        {
+          "name": "Loratadine",
+          "description": "Relieves allergy symptoms.",
+          "dosage": "10mg, once a day"
+        }
+      ]
+    }
+  ]

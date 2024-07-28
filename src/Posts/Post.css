@@ -1,0 +1,71 @@
+.post-background {
+  background-image: url('https://img.freepik.com/free-photo/elevated-view-white-blue-candy-capsules-corner-cyan-backdrop_23-2147877565.jpg');
+  background-repeat: no-repeat;
+  background-size: cover; /* Cover the entire container without distortion */
+  background-position: center; /* Center the background image */
+  background-attachment: fixed;
+  width: 100%;
+  height: 100vh; /* Make sure it covers the full viewport height */
+  overflow: auto; /* Allow scrolling if content overflows */
+}
+
+.post-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin-left: 350px;
+  margin-top: 200px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.medicine-card {
+  background-color: #f9f9f9;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.medicine-card strong {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.total {
+  font-size: 18px;
+  margin-top: 20px;
+  text-align: right;
+}
+
+.upload-section {
+  margin-top: 20px;
+}
+
+.file-preview {
+  margin-top: 10px;
+}
+
+.file-preview img {
+  max-width: 70%;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.post-btn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.post-btn:hover {
+  background-color: #0056b3;
+}

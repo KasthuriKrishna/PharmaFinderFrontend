@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Signup.css';
+import TitleBar from '../Components/Titlebar';
 const PharmacySignup = () => {
   const [formData, setFormData] = useState({
+    email:'',
+    password:'',
     name: '',
     address: '',
     contact: '',
@@ -44,9 +47,20 @@ const PharmacySignup = () => {
   };
 
   return (
+    <div>
+    <TitleBar/>
+    <body className='Pharma-signup'>
     <div className="signup-container">
       <h2>Pharmacy Registration</h2>
       <form onSubmit={handleSubmit} className="signup-form">
+      <div className="form-group">
+          <label>Email</label>
+          <input type="text" name="name" value={formData.email} onChange={handleChange} required />
+        </div>
+        <div className="form-group">
+          <label>Password</label>
+          <input type="text" name="name" value={formData.password} onChange={handleChange} required />
+        </div>
         <div className="form-group">
           <label>Pharmacy Name</label>
           <input type="text" name="name" value={formData.name} onChange={handleChange} required />
@@ -103,6 +117,8 @@ const PharmacySignup = () => {
         </div>
         <button type="submit">Register</button>
       </form>
+    </div>
+    </body>
     </div>
   );
 };

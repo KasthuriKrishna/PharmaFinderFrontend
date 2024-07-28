@@ -1,0 +1,26 @@
+/* styles.css */
+.medicine-search-results {
+    margin-top: 20px;
+  }
+  
+  .pharmacy-card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: azure;
+  }
+  
+  .pharmacy-name {
+    font-weight: bold;
+  }
+  
+  .pharmacy-details {
+    margin-top: 5px;
+  }
+  
+  .pharmacy-contact {
+    font-style: italic;
+    color: #666;
+  }
+  

@@ -10,7 +10,7 @@ body.listbody{
   
   .create-list-container {
     margin-left: 350px;
-    margin-top: 20px;
+    margin-top: 80px;
     background-color: rgba(209, 205, 207, 0.9); /* Semi-transparent background */
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -45,15 +45,12 @@ body.listbody{
     overflow-y: auto;
     border: 1px solid #ccc;
     border-radius: 5px;
+    background-color: antiquewhite;
   }
   
   .suggestions li {
     padding: 10px;
     cursor: pointer;
-  }
-  
-  .suggestions li:hover {
-    background-color: #f0f0f0;
   }
   
   .selected-medicines {

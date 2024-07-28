@@ -1,0 +1,78 @@
+.history-div {
+    background-image: url('https://www.eraasinternational.com/Blogs/RqLCjrORN1tHyNHUqJtiU0bG5ap1LWSa9aO8jgZy.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  .history-container {
+    padding: 20px;
+    margin-left: 320px;
+    margin-right: 200px;
+    background-color: rgba(245, 243, 240, 0.5);
+  }
+  
+  .search-bar {
+    margin-bottom: 20px;
+  }
+  
+  .search-bar input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  h2 {
+    margin-top: 20px;
+    font-size: 1.5rem;
+  }
+  
+  .recent-list, .previous-list {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .recent-item, .previous-item {
+    display: flex;
+    flex-direction: column; /* Change to column to stack Replies below */
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    cursor: pointer;
+    height: auto; /* Remove fixed height */
+    position: relative;
+  }
+  
+  .recent-item:hover, .previous-item:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .recent-item-content, .previous-item-content {
+    flex: 1;
+  }
+  
+  .recent-item-meta, .previous-item-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
+  .recent-item-arrow, .previous-item-arrow {
+    margin-left: 10px;
+    font-size: 1.2rem;
+    color: #007bff;
+  }
+  
+  .replies-container {
+    padding: 10px;
+    background-color: #f1f1f1;
+    border-radius: 8px;
+    margin-top: 10px; /* Space between order item and replies */
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for better visibility */
+  }
+  

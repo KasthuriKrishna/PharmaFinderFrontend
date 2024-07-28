@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './FirstPage.css';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../Components/Navbar';
 
 const FindMedicine = () => {
   const [medicines, setMedicines] = useState([]);
@@ -8,7 +9,8 @@ const FindMedicine = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
-  const [menuOpen, setMenuOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(-1);
 
   const userAddress = {
     street: "456 Elm St",
@@ -30,6 +32,7 @@ const FindMedicine = () => {
   const handleChange = (event) => {
     const value = event.target.value;
     setSearchTerm(value);
+    setActiveSuggestionIndex(-1);
     if (value.length > 0) {
       const filteredSuggestions = medicines.filter(medicine =>
         medicine.toLowerCase().includes(value.toLowerCase())
@@ -40,10 +43,14 @@ const FindMedicine = () => {
     }
   };
 
-  const navigate = useNavigate();
-  const HandleList = () => {
-    navigate('/list');
-  }
+  const handleClearSearch = () => {
+    setSearchTerm('');
+    setSuggestions([]);
+    setSearchResults({
+      nearYou: [],
+      inYourDistrict: []
+    });
+  };
 
   const handleSuggestionClick = (suggestion) => {
     setSearchTerm(suggestion);
@@ -73,41 +80,67 @@ const FindMedicine = () => {
     setSearchResults(categorizedResults);
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      setActiveSuggestionIndex(prevIndex => 
+        Math.min(prevIndex + 1, suggestions.length - 1)
+      );
+    } else if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      setActiveSuggestionIndex(prevIndex => 
+        Math.max(prevIndex - 1, 0)
+      );
+    } else if (event.key === 'Enter') {
+      event.preventDefault();
+      if (activeSuggestionIndex >= 0 && activeSuggestionIndex < suggestions.length) {
+        handleSuggestionClick(suggestions[activeSuggestionIndex]);
+        handleSearch();
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (searchTerm === '') {
+      setActiveSuggestionIndex(-1);
+    }
+  }, [searchTerm]);
+
   const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
+    setSidebarOpen(!sidebarOpen);
   };
 
   return (
-    <body className='searchpage'>
-      <div className={`sidebar ${menuOpen ? 'open' : ''}`}>
-        <ul>
-          <li onClick={() => navigate('/')}>Home</li>
-          <li onClick={() => navigate('/about')}>About</li>
-          <li onClick={() => navigate('/contact')}>Contact</li>
-          <li onClick={() => navigate('/help')}>Help</li>
-        </ul>
-      </div>
-      <button className="menu-toggle" onClick={toggleMenu}>
-        Menu
-      </button>
-      <div className="container">
+    <div className='searchpage'>
+      <Navbar menuOpen={sidebarOpen} toggleMenu={toggleMenu} />
+      <body className='searchpage'>
+      <div className="first-container">
         <header>
           <h1>Find Medicine</h1>
         </header>
         <main>
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={handleChange}
-            placeholder="Search medicine brand name"
-            className="search-bar"
-          />
+          <div className="search-bar-container">
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={handleChange}
+              onKeyDown={handleKeyDown}
+              placeholder="Search medicine brand name"
+              className="search-bar"
+            />
+            {searchTerm && (
+              <button className="clear-button" onClick={handleClearSearch}>
+                &times;
+              </button>
+            )}
+          </div>
           {suggestions.length > 0 && (
             <ul className="suggestions">
               {suggestions.map((suggestion, index) => (
                 <li
                   key={index}
                   onClick={() => handleSuggestionClick(suggestion)}
+                  className={index === activeSuggestionIndex ? 'active' : ''}
                 >
                   {suggestion}
                 </li>
@@ -133,7 +166,7 @@ const FindMedicine = () => {
           )}
           {searchResults.inYourDistrict && searchResults.inYourDistrict.length > 0 && (
             <div>
-              <h2>In Your District</h2>
+              <h2>Near You</h2>
               <ul className="search-results">
                 {searchResults.inYourDistrict.map((result, index) => (
                   <li key={index}>
@@ -145,15 +178,13 @@ const FindMedicine = () => {
               </ul>
             </div>
           )}
-          <div className="broadcast">
-            <button className="create-list" onClick={HandleList}>Create List</button>
-          </div>
         </main>
         <footer>
           <p>Here's to your health and happiness, today and always.</p>
         </footer>
       </div>
-    </body>
+      </body>
+    </div>
   );
 };
 

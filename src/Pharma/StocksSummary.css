@@ -1,0 +1,32 @@
+.summary-card {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+    animation: blink 1s infinite;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  
+  .card-icon {
+    font-size: 2em;
+    margin-right: 20px;
+  }
+  
+  .card-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .card-details h3 {
+    margin: 0;
+  }
+  
+  .card-details h1 {
+    margin: 0;
+  }
+  

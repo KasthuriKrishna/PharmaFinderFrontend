@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './CreateList.css';
+import Navbar from '../Components/Navbar';
+import MedicineSearchResults from '../Components/MedicineSearchResults';
 
 const CreateList = () => {
   const [medicines, setMedicines] = useState([]);
@@ -8,6 +11,11 @@ const CreateList = () => {
   const [selectedMedicines, setSelectedMedicines] = useState([]);
   const [pharmacies, setPharmacies] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
+  const [showResults, setShowResults] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [showWarning, setShowWarning] = useState(false);
+
+  const navigate = useNavigate();
 
   const userAddress = {
     street: "456 Elm St",
@@ -63,6 +71,12 @@ const CreateList = () => {
   };
 
   const handleSearch = () => {
+    if (selectedMedicines.length === 0) {
+      setShowWarning(true);
+      return;
+    }
+    setShowWarning(false);
+
     const filteredResults = pharmacies.filter(pharmacy =>
       selectedMedicines.every(selectedMedicine =>
         pharmacy.medicines.includes(selectedMedicine.name)
@@ -83,95 +97,102 @@ const CreateList = () => {
     });
 
     setSearchResults(categorizedResults);
+    setShowResults(true);
 
     if (filteredResults.length === 0) {
       alert("Oops!! No results found.");
     }
   };
 
+  const handlePost = () => {
+    if (selectedMedicines.length === 0) {
+      setShowWarning(true);
+      return;
+    }
+    setShowWarning(false);
+    navigate('/post', { state: { selectedMedicines } });
+  };
+
+  const toggleMenu = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
   return (
-    <body className='listbody'>
-    <div className="create-list-container">
-      <header>
-        <h1>Broadcast List</h1>
-      </header>
-      <main>
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={handleChange}
-          placeholder="Search Medicine"
-          className="search-bar"
-        />
-        {suggestions.length > 0 && (
-          <ul className="suggestions">
-            {suggestions.map((suggestion, index) => (
-              <li key={index} onClick={() => handleSuggestionClick(suggestion)}>
-                {suggestion.name}
-              </li>
-            ))}
-          </ul>
-        )}
-        <div className="selected-medicines">
-          {selectedMedicines.map((medicine, index) => (
-            <div key={index} className="medicine-item">
-              <span>{medicine.name}</span>
-              <select
-                value={medicine.selectedDosage}
-                onChange={(event) => handleDosageChange(index, event)}
-              >
-                {medicine.dosages.map((dosage, dosageIndex) => (
-                  <option key={dosageIndex} value={dosage}>
-                    {dosage}
-                  </option>
-                ))}
-              </select>
-              <div className="quantity-controls">
-                <button onClick={() => handleQuantityChange(index, -1)}>-</button>
-                <span>{medicine.quantity}</span>
-                <button onClick={() => handleQuantityChange(index, 1)}>+</button>
+    <div className='listbody'>
+      <Navbar menuOpen={sidebarOpen} toggleMenu={toggleMenu} />
+      <div className="create-list-container">
+        <header>
+          <h1>Create List</h1>
+        </header>
+        <main>
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={handleChange}
+            placeholder="Search Medicine"
+            className="search-bar"
+          />
+          {suggestions.length > 0 && (
+            <ul className="suggestions">
+              {suggestions.map((suggestion, index) => (
+                <li key={index} onClick={() => handleSuggestionClick(suggestion)}>
+                  {suggestion.name}
+                </li>
+              ))}
+            </ul>
+          )}
+          <div className="selected-medicines">
+            {selectedMedicines.map((medicine, index) => (
+              <div key={index} className="medicine-item">
+                <span>{medicine.name}</span>
+                <select
+                  value={medicine.selectedDosage}
+                  onChange={(event) => handleDosageChange(index, event)}
+                >
+                  {medicine.dosages.map((dosage, dosageIndex) => (
+                    <option key={dosageIndex} value={dosage}>
+                      {dosage}
+                    </option>
+                  ))}
+                </select>
+                <div className="quantity-controls">
+                  <button onClick={() => handleQuantityChange(index, -1)}>-</button>
+                  <span>{medicine.quantity}</span>
+                  <button onClick={() => handleQuantityChange(index, 1)}>+</button>
+                </div>
+                <button onClick={() => handleQuantityChange(index, -medicine.quantity)}>X</button>
               </div>
-              <button onClick={() => handleQuantityChange(index, -medicine.quantity)}>X</button>
+            ))}
+          </div>
+          {showWarning && (
+            <div className="warning-message">
+              <img src="https://img.freepik.com/premium-vector/warning-icon-vector-isolated-white-background_162100-446.jpg" alt="Warning" width="100px" height="100px"/>
+              <p>Please select at least one medicine.</p>
             </div>
-          ))}
-        </div>
-        <button className="search-button" onClick={handleSearch}>
-          Search
-        </button>
-        {searchResults.nearYou && searchResults.nearYou.length > 0 && (
-          <div>
-            <h2>Near You</h2>
-            <ul className="search-results">
-              {searchResults.nearYou.map((result, index) => (
-                <li key={index}>
-                  <h3>{result.name}</h3>
-                  <p>{`${result.location.street}, ${result.location.town}, ${result.location.district}, ${result.location.state}`}</p>
-                  <p>Working Time: {result.workingTime}</p>
-                </li>
-              ))}
-            </ul>
+          )}
+          <div className="action-buttons">
+            <button className="search-button" onClick={handleSearch}>
+              Search
+            </button>
+            <button className="post-button" onClick={handlePost}>
+              Post
+            </button>
           </div>
-        )}
-        {searchResults.inYourDistrict && searchResults.inYourDistrict.length > 0 && (
-          <div>
-            <h2>In Your District</h2>
-            <ul className="search-results">
-              {searchResults.inYourDistrict.map((result, index) => (
-                <li key={index}>
-                  <h3>{result.name}</h3>
-                  <p>{`${result.location.street}, ${result.location.town}, ${result.location.district}, ${result.location.state}`}</p>
-                  <p>Working Time: {result.workingTime}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </main>
-      <footer>
-        <p>Fill all the details given in the form</p>
-      </footer>
+          {showResults && (
+            <MedicineSearchResults
+              selectedTablets={selectedMedicines}
+              street={userAddress.street}
+              town={userAddress.town}
+              district={userAddress.district}
+              pharmacies={pharmacies}
+            />
+          )}
+        </main>
+        <footer>
+          <p>Fill all the details given in the form</p>
+        </footer>
+      </div>
     </div>
-    </body>
   );
 };
 

@@ -6,6 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import FirstPage from './Home/FirstPage';
 import CreateList from './ListSearch/CreateList';
 import CusSignup from './LoginAndSignup/CusSignup'
+import Diagnosis from './ListSearch/Diagnosis';
+import PharmaHome from './Pharma/PharmaHome';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

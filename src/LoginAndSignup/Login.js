@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
+import TitleBar from '../Components/Titlebar';
 
 function Login() {
   const [accountType, setAccountType] = useState('');
@@ -13,10 +14,20 @@ function Login() {
       navigate('/customer-signup');
     }
   };
-  const Handlelogin=()=>{
-    navigate('/home');
-  }
+  const Handlelogin = (event) => {
+    event.preventDefault(); // Prevent the form from submitting
+    if (accountType === 'doctor') {
+      navigate('/pharmahome');
+    } else if (accountType === 'patient') {
+      navigate('/cus-home');
+    } else {
+      // Handle case when accountType is not selected
+      alert('Please select an account type');
+    }
+  };
   return (
+    <div>
+    <TitleBar/>
     <div className="Login">
       <header className="Login-header">
         <h1>Choose Account Type</h1>
@@ -59,6 +70,7 @@ function Login() {
           <a href="#" onClick={handleSignupRedirect}>Signup</a>
         </p>
       </footer>
+    </div>
     </div>
   );
 }

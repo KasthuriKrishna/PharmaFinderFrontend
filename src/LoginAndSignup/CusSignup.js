@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './CusSignup.css';
+import TitleBar from '../Components/Titlebar';
 
 function LoginForm() {
   const [formData, setFormData] = useState({
@@ -66,11 +67,13 @@ function LoginForm() {
   };
 
   return (
+    <div className='cus-sign'>
+    <TitleBar/>
     <div className="container">
       <div className="title">Create an Account</div>
       <div className="login-container">
         <div className="section image-section">
-          <img src="https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iQ0iR4n21G28/v0/-999x-999.gif" alt="Login" />
+          <img src="https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iQ0iR4n21G28/v0/-999x-999.gif" alt="Login" className='form-image'/>
         </div>
         <div className="section form-section">
           <h3>Personal Details</h3>
@@ -190,17 +193,6 @@ function LoginForm() {
               />
               {errors.dateOfBirth && <p>{errors.dateOfBirth}</p>}
             </div>
-            <div className="form-group">
-              <input
-                type="checkbox"
-                name="agree"
-                id="agree"
-                checked={formData.agree}
-                onChange={handleChange}
-              />
-              <label htmlFor="agree">I agree to the license terms.</label>
-              {errors.agree && <p>{errors.agree}</p>}
-            </div>
           </form>
         </div>
       </div>
@@ -208,6 +200,8 @@ function LoginForm() {
         <button onClick={handleSubmit}>Sign Up</button>
         <p><a href="/forgot-password">Forgot password?</a></p>
       </div>
+    </div>
+    <br/>
     </div>
   );
 }

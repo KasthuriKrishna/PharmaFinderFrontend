@@ -1,47 +1,122 @@
 [
-    {
-      "name": "Pharmacy One",
-      "location": {
-        "street": "123 Main St",
-        "town": "Springfield",
-        "district": "Springfield District",
-        "state": "Example State"
-      },
-      "medicines": ["Aspirin", "Ibuprofen", "Paracetamol"],
-      "workingTime": "9 AM - 9 PM"
+  {
+    "name": "Pharmacy One",
+    "location": {
+      "street": "123 Main St",
+      "town": "Springfield",
+      "district": "Springfield District",
+      "state": "Example State"
     },
-    {
-      "name": "Pharmacy Two",
-      "location": {
-        "street": "456 Elm St",
-        "town": "Springfield",
-        "district": "Springfield District",
-        "state": "Example State"
-      },
-      "medicines": ["Amoxicillin", "Ciprofloxacin", "Metformin"],
-      "workingTime": "10 AM - 8 PM"
+    "medicines": ["Aspirin", "Ibuprofen", "Paracetamol"],
+    "workingTime": "9 AM - 9 PM",
+    "contact": "9876543210"
+  },
+  {
+    "name": "Pharmacy Two",
+    "location": {
+      "street": "456 Elm St",
+      "town": "Springfield",
+      "district": "Springfield District",
+      "state": "Example State"
     },
-    {
-      "name": "Pharmacy Three",
-      "location": {
-        "street": "789 Oak St",
-        "town": "Shelbyville",
-        "district": "Shelbyville District",
-        "state": "Example State"
-      },
-      "medicines": ["Atorvastatin", "Omeprazole", "Simvastatin"],
-      "workingTime": "8 AM - 10 PM"
+    "medicines": ["Amoxicillin", "Ciprofloxacin", "Metformin"],
+    "workingTime": "10 AM - 8 PM",
+    "contact": "8765432109"
+  },
+  {
+    "name": "Pharmacy Three",
+    "location": {
+      "street": "789 Oak St",
+      "town": "Shelbyville",
+      "district": "Shelbyville District",
+      "state": "Example State"
     },
-    {
-      "name": "Pharmacy Four",
-      "location": {
-        "street": "101 Pine St",
-        "town": "Springfield",
-        "district": "Springfield District",
-        "state": "Example State"
-      },
-      "medicines": ["Lisinopril", "Losartan", "Hydrochlorothiazide"],
-      "workingTime": "7 AM - 7 PM"
-    }
-  ]
-  
+    "medicines": ["Atorvastatin", "Omeprazole", "Simvastatin"],
+    "workingTime": "8 AM - 10 PM",
+    "contact": "7654321098"
+  },
+  {
+    "name": "Pharmacy Four",
+    "location": {
+      "street": "101 Pine St",
+      "town": "Springfield",
+      "district": "Springfield District",
+      "state": "Example State"
+    },
+    "medicines": ["Lisinopril", "Losartan", "Hydrochlorothiazide"],
+    "workingTime": "7 AM - 7 PM",
+    "contact": "6543210987"
+  },
+  {
+    "name": "Pharmacy Five",
+    "location": {
+      "street": "102 Maple St",
+      "town": "Shelbyville",
+      "district": "Shelbyville District",
+      "state": "Example State"
+    },
+    "medicines": ["Levothyroxine", "Metformin", "Amlodipine"],
+    "workingTime": "9 AM - 9 PM",
+    "contact": "9123456780"
+  },
+  {
+    "name": "Pharmacy Six",
+    "location": {
+      "street": "203 Birch St",
+      "town": "Springfield",
+      "district": "Springfield District",
+      "state": "Example State"
+    },
+    "medicines": ["Metoprolol", "Albuterol", "Gabapentin"],
+    "workingTime": "8 AM - 8 PM",
+    "contact": "8234567891"
+  },
+  {
+    "name": "Pharmacy Seven",
+    "location": {
+      "street": "304 Cedar St",
+      "town": "Shelbyville",
+      "district": "Shelbyville District",
+      "state": "Example State"
+    },
+    "medicines": ["Hydrocodone", "Hydrochlorothiazide", "Sertraline"],
+    "workingTime": "7 AM - 7 PM",
+    "contact": "7345678902"
+  },
+  {
+    "name": "Pharmacy Eight",
+    "location": {
+      "street": "405 Walnut St",
+      "town": "Springfield",
+      "district": "Springfield District",
+      "state": "Example State"
+    },
+    "medicines": ["Fluticasone", "Furosemide", "Amoxicillin"],
+    "workingTime": "10 AM - 8 PM",
+    "contact": "6456789013"
+  },
+  {
+    "name": "Pharmacy Nine",
+    "location": {
+      "street": "506 Spruce St",
+      "town": "Shelbyville",
+      "district": "Shelbyville District",
+      "state": "Example State"
+    },
+    "medicines": ["Cyclobenzaprine", "Cephalexin", "Clonazepam"],
+    "workingTime": "8 AM - 9 PM",
+    "contact": "9567890124"
+  },
+  {
+    "name": "Pharmacy Ten",
+    "location": {
+      "street": "607 Pine St",
+      "town": "Springfield",
+      "district": "Springfield District",
+      "state": "Example State"
+    },
+    "medicines": ["Tramadol", "Gabapentin", "Montelukast"],
+    "workingTime": "9 AM - 10 PM",
+    "contact": "8678901235"
+  }
+]

@@ -1,0 +1,139 @@
+.search-symptoms-page {
+  background-image: url('https://img.pikbest.com/wp/202405/purpose-of-pharmaceutical-manufacturing-for-medicinal-purposes-3d-rendering-drugs-on-a-blue-backdrop_9827629.jpg!w700wp');
+  background-size: cover;
+  background-position: center;
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.search-bar {
+  margin-top: 40px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.suggestions {
+  margin-top: 10px;
+}
+
+.suggestion {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.symptom-details h2 {
+  color: #f8f2f2;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2em;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.tablet-card, .symptom-card {
+  background: rgb(205, 234, 247);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 10px;
+  text-transform: none;
+  flex: 1 1 calc(50% - 20px);
+  width: 100%;
+}
+
+.symptom-card img, .tablet-card img {
+  width: auto; /* Maintain aspect ratio */
+  max-width: 100%; /* Ensure it doesn't overflow the card */
+  height: 150px; /* Set a fixed height */
+  object-fit: cover; /* Ensure the image covers the set height */
+}
+
+.symptom-card p, .tablet-card p {
+  margin: 10px 0 0;
+  font-size: 1.1em;
+  color: black;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.add-btn, .increment-btn, .decrement-btn, .remove-btn {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-btn {
+  background-color: #1976d2;
+  color: white;
+}
+
+.increment-btn, .decrement-btn {
+  background-color: #1976d2;
+  color: white;
+}
+
+.remove-btn {
+  background-color: #dc004e;
+  color: white;
+}
+
+.add-btn:hover, .increment-btn:hover, .decrement-btn:hover, .remove-btn:hover {
+  opacity: 0.9;
+}
+
+.tablet-card p:last-of-type {
+  margin-bottom: 25px; /* Adjust this value as needed to control the gap */
+}
+.selected-tablets ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.selected-tablets li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: rgb(205, 234, 247);
+}
+.symptom-details{
+  margin-left: 100px;
+  margin-right: 100px;
+}
+.diagnosis-container{
+  margin-left: 300px;
+}

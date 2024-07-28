@@ -1,0 +1,250 @@
+.stock-body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.stock-section {
+  flex: 1;
+  padding: 20px;
+  background-color: #ddd;
+}
+
+.summary-cards {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0;
+  
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  font-size: 24px;
+}
+
+.header button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filters input,
+.filters select {
+  padding: 5px;
+}
+
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.product-table th,
+.product-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.product-table th {
+  background-color: #f2f2f2;
+}
+
+.product-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.product-name img {
+  width: 30px;
+  height: 30px;
+}
+
+.status-active {
+  color: #fff;
+  background-color: #4caf50;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.actions button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  color: black;
+}
+
+.table-container {
+  margin-bottom: 20px;
+
+}
+
+.stock-cards {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 300px;
+  margin-bottom: 20px;
+  width: 50%;
+}
+
+.stock-card {
+  flex: 1;
+  padding: 20px;
+  margin-right: 60px;
+  border-radius: 5px;
+  background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+  animation: blink 1s infinite;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.stock-card:last-child {
+  margin-right: 0;
+}
+
+.stock-card h3 {
+  margin-bottom: 10px;
+}
+
+.stock-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.stock-card li {
+  margin-bottom: 5px;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    border-color: #ff6666;
+  }
+  50% {
+    border-color: #ffcccc;
+  }
+}
+
+/* New Styles for Tables */
+.product-table th {
+  background-color: #007bff;
+  color: white;
+}
+
+.product-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.product-table tr:hover {
+  background-color: #ddd;
+}
+
+.product-table .product-name img {
+  width: 50px;
+  height: 50px;
+}
+
+.product-table .status-active {
+  background-color: #28a745;
+}
+
+.product-table .status-inactive {
+  background-color: #dc3545;
+  color: white;
+}
+
+.product-table td, .product-table th {
+  padding: 12px;
+}
+
+.product-table th {
+  background-color: #343a40;
+  color: white;
+  text-transform: uppercase;
+}
+
+.product-table tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+.product-table tr:hover {
+  background-color: #e9ecef;
+}
+
+.product-table .product-name img {
+  width: 50px;
+  height: 50px;
+}
+
+.product-table .status-active {
+  background-color: #28a745;
+  color: white;
+}
+
+.product-table .status-inactive {
+  background-color: #dc3545;
+  color: white;
+}
+
+.product-table .actions button {
+  margin-right: 5px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.product-table .actions button:hover {
+  background-color: #0056b3;
+}
+
+/* New Styles for Recently Added and Highest Selling Tables */
+#recently-added table, #highest-selling table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+#recently-added th, #highest-selling th, 
+#recently-added td, #highest-selling td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+#recently-added th, #highest-selling th {
+  background-color: #343a40;
+  color: white;
+  text-transform: uppercase;
+}
+
+#recently-added tr:nth-child(even), #highest-selling tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+#recently-added tr:hover, #highest-selling tr:hover {
+  background-color: #e9ecef;
+}
