@@ -1,0 +1,31 @@
+/* src/App.css */
+.prescription-scanner {
+    text-align: center;
+    margin: 20px;
+  }
+  
+  .prescription-scanner img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .prescription-scanner h1 {
+    color: #333;
+  }
+  
+  .prescription-scanner h2 {
+    color: #555;
+  }
+  
+  .prescription-scanner ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .prescription-scanner li {
+    background: #f4f4f4;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 4px;
+  }
+  

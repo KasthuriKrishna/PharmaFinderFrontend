@@ -9,7 +9,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-image: url('https://st4.depositphotos.com/1005563/23517/i/450/depositphotos_235171718-stock-photo-laboratory-research-development-scientific-glassware.jpg');
+  background: linear-gradient(135deg, #162c36, #42859c, #5fc0ea);
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -31,7 +31,7 @@ body {
 .tabs {
   display: flex;
   justify-content: center;
-  background-color: #e4d5d5;
+  background-color: rgb(170, 202, 228);
   padding: 10px 0;
   margin-top: 64px; /* Height of the AppBar */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -60,7 +60,7 @@ body {
 
 .container {
   max-width: 1200px;
-  background-color:  #bab8b8(239, 201, 136, 0.9);
+  background-color: rgb(170, 202, 228);
 }
 
 .grid {
@@ -77,23 +77,23 @@ body {
   overflow: hidden;
   transition: transform 0.15s ease-in-out;
   width: 300px;
+  border: 2px solid transparent; /* Ensure the border is initially transparent */
+  animation: blink-border 1s infinite;
 }
 
 .card:hover {
   transform: scale(1.05);
-  animation: blink-border 1s infinite;
-  border: 2px solid transparent; /* Ensure the border is initially transparent */
 }
 
 @keyframes blink-border {
   0% {
-    border: 2px solid transparent;
+    border-color: transparent;
   }
   50% {
-    border: 2px solid #1c0271;
+    border-color: #1c0271;
   }
   100% {
-    border: 2px solid transparent;
+    border-color: transparent;
   }
 }
 

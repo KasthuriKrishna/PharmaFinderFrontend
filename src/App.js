@@ -14,29 +14,127 @@ import Stocks from './Pharma/Stocks';
 import Orders from './Pharma/Orders';
 import Analysis from './Pharma/Analysis';
 import History from './ListSearch/History';
+import AddMedicineForm from './Pharma/AddMedicineForm';
+import NewCusHome from './Home/NewCusHome'
+import PharmacySignup from './LoginAndSignup/Signup';
+import PharmacyFinder from './ListSearch/PharmacyFinder';
+import ProtectedRoute from './ProtectedRoute';
 
 function App() {
   return (
     <BrowserRouter>
-    <Routes>
-   <Route path="/" element={<LandingPage/>}/>
-   <Route path="/login" element={<Login/>}/>
-   <Route path="/pharmacist-signup" element={<Signup/>}/>
-   <Route path="/customer-signup" element={<CusSignup/>}/>
-   <Route path="/home" element={<FirstPage/>}/>
-   <Route path="/cus-home" element={<CusHome/>}/>
-   <Route path="/list" element={<CreateList/>}/>
-   <Route path="/diagnosis" element={<Diagnosis/>}/>
-   <Route path="/post" element={<Post/>}/>
-   <Route path="/pharmahome" element={<PharmaHome/>}/>
-   <Route path="/signout" element={<LandingPage/>}/>
-   <Route path="/requests" element={<Requests/>}/>
-   <Route path="/stocks" element={<Stocks/>}/>
-   <Route path="/orders" element={<Orders/>}/>
-   <Route path="/analysis" element={<Analysis/>}/>
-   <Route path="/history" element={<History/>}/>
-   </Routes>
-   </BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/pharmacist-signup" element={<Signup />} />
+        <Route path="/customer-signup" element={<CusSignup />} />
+        <Route 
+          path="/home" 
+          element={
+            <ProtectedRoute>
+              <FirstPage />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/cus-home" 
+          element={
+            <ProtectedRoute>
+              <NewCusHome />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/list" 
+          element={
+            <ProtectedRoute>
+              <CreateList />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/diagnosis" 
+          element={
+            <ProtectedRoute>
+              <Diagnosis />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/post" 
+          element={
+            <ProtectedRoute>
+              <Post />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/pharmahome" 
+          element={
+            <ProtectedRoute>
+              <PharmaHome />
+            </ProtectedRoute>
+          } 
+        />
+        <Route path="/signout" element={<LandingPage />} />
+        <Route 
+          path="/requests" 
+          element={
+            <ProtectedRoute>
+              <Requests />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/stocks" 
+          element={
+            <ProtectedRoute>
+              <Stocks />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/orders" 
+          element={
+            <ProtectedRoute>
+              <Orders />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/analysis" 
+          element={
+            <ProtectedRoute>
+              <Analysis />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/history" 
+          element={
+            <ProtectedRoute>
+              <History />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/addmed" 
+          element={
+            <ProtectedRoute>
+              <AddMedicineForm />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/pharma" 
+          element={
+            <ProtectedRoute>
+              <PharmacyFinder />
+            </ProtectedRoute>
+          } 
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

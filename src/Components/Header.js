@@ -10,7 +10,7 @@ const Header = () => {
     };
 
     return (
-        <header className="appBar">
+        <header className="headerappBar">
             <div className="toolbar">
                 <h1 style={{color:"white"}}>Pharmacy</h1>
                 <button className="signOutButton" onClick={handleSignOut}>Sign out</button>

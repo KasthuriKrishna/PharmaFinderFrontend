@@ -1,29 +1,49 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import AxiosServices from '../Services/AxiosServices'; // Import the AxiosService
 import './Reply.css';
 
 const Replies = () => {
-  const defaultReplies = [
-    { pharmacy: 'Pharmacy A', message: 'We have all the medicines you need in stock.', mobile: '1234567890' },
-    { pharmacy: 'Pharmacy B', message: 'We have Ibuprofen and Paracetamol in stock. Please visit us.', mobile: '2345678901' },
-    { pharmacy: 'Pharmacy C', message: 'We have limited stock of Amoxicillin. Hurry up!', mobile: '3456789012' },
-  ];
+  const [replies, setReplies] = useState([]);
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      fetchReplies(user.id);
+    }
+  }, []);
+
+  const fetchReplies = async (userId) => {
+    try {
+      const data = await AxiosServices.fetchRepliesForUser(userId);
+      setReplies(data);
+    } catch (error) {
+      console.error('Error fetching replies:', error);
+    }
+  };
 
   const copyToClipboard = (mobile) => {
-    navigator.clipboard.writeText(mobile).then(() => {
-      alert('Mobile number copied to clipboard!');
-    }).catch(err => {
-      alert('Failed to copy mobile number to clipboard.');
-    });
+    navigator.clipboard.writeText(mobile)
+      .then(() => {
+        alert('Mobile number copied to clipboard!');
+      })
+      .catch(err => {
+        alert('Failed to copy mobile number to clipboard.');
+      });
   };
 
   return (
     <div className="replies-container">
       <h2>Replies from Pharmacies</h2>
       <ul>
-        {defaultReplies.map((reply, index) => (
-          <li key={index} className="reply-card">
-            <strong>{reply.pharmacy}</strong>: {reply.message}
-            <button onClick={() => copyToClipboard(reply.mobile)} className="contact-button">Contact</button>
+        {replies.map((reply) => (
+          <li key={reply.id} className="reply-card">
+            <strong>{reply.pharmacy.pharmacyName}</strong>
+            <p>{reply.pharmacy.address}</p>
+            <p>{reply.replyMessage}</p>
+            <p>{new Date(reply.replyDate).toLocaleString()}</p>
+            <button onClick={() => copyToClipboard(reply.pharmacy.contact)} className="contact-button">
+              Contact
+            </button>
           </li>
         ))}
       </ul>

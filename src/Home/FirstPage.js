@@ -1,32 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import './FirstPage.css';
-import { useNavigate } from 'react-router-dom';
-import Navbar from '../Components/Navbar';
+import './FirstPage.css'; // Import the CSS file for styling
+import NewNavBar from '../Components/NewNav';
+import MedicineSearchResults from '../Components/MedicineSearchResults';
+import AxiosService from '../Services/AxiosServices'; // Import the service
 
 const FindMedicine = () => {
   const [medicines, setMedicines] = useState([]);
-  const [pharmacies, setPharmacies] = useState([]);
+  const [selectedMedicine, setSelectedMedicine] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [suggestions, setSuggestions] = useState([]);
-  const [searchResults, setSearchResults] = useState([]);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
   const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(-1);
 
-  const userAddress = {
-    street: "456 Elm St",
-    town: "Springfield",
-    district: "Springfield District",
-    state: "Example State"
-  };
-
   useEffect(() => {
-    fetch('/Medicines.json')
-      .then(response => response.json())
-      .then(data => setMedicines(data));
+    const fetchMedicinesData = async () => {
+      try {
+        const data = await AxiosService.fetchMedicines();
+        setMedicines(data);
+      } catch (error) {
+        console.error('Error fetching medicines:', error);
+      }
+    };
 
-    fetch('/pharmacies.json')
-      .then(response => response.json())
-      .then(data => setPharmacies(data));
+    fetchMedicinesData();
   }, []);
 
   const handleChange = (event) => {
@@ -35,7 +30,7 @@ const FindMedicine = () => {
     setActiveSuggestionIndex(-1);
     if (value.length > 0) {
       const filteredSuggestions = medicines.filter(medicine =>
-        medicine.toLowerCase().includes(value.toLowerCase())
+        medicine.name.toLowerCase().includes(value.toLowerCase())
       );
       setSuggestions(filteredSuggestions);
     } else {
@@ -46,38 +41,20 @@ const FindMedicine = () => {
   const handleClearSearch = () => {
     setSearchTerm('');
     setSuggestions([]);
-    setSearchResults({
-      nearYou: [],
-      inYourDistrict: []
-    });
+    setSelectedMedicine(null);
   };
 
   const handleSuggestionClick = (suggestion) => {
-    setSearchTerm(suggestion);
+    setSearchTerm(suggestion.name);
+    setSelectedMedicine(suggestion);
     setSuggestions([]);
   };
 
   const handleSearch = () => {
-    const filteredResults = pharmacies.filter(pharmacy =>
-      pharmacy.medicines.some(medicine =>
-        medicine.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    );
-
-    const categorizedResults = {
-      nearYou: [],
-      inYourDistrict: []
-    };
-
-    filteredResults.forEach(pharmacy => {
-      if (pharmacy.location.town === userAddress.town && pharmacy.location.street === userAddress.street) {
-        categorizedResults.nearYou.push(pharmacy);
-      } else if (pharmacy.location.district === userAddress.district) {
-        categorizedResults.inYourDistrict.push(pharmacy);
-      }
-    });
-
-    setSearchResults(categorizedResults);
+    if (!selectedMedicine) {
+      alert("Please select a medicine from the suggestions.");
+      return;
+    }
   };
 
   const handleKeyDown = (event) => {
@@ -95,95 +72,77 @@ const FindMedicine = () => {
       event.preventDefault();
       if (activeSuggestionIndex >= 0 && activeSuggestionIndex < suggestions.length) {
         handleSuggestionClick(suggestions[activeSuggestionIndex]);
+        setActiveSuggestionIndex(-1);
+      } else {
         handleSearch();
       }
     }
   };
 
-  useEffect(() => {
-    if (searchTerm === '') {
-      setActiveSuggestionIndex(-1);
-    }
-  }, [searchTerm]);
-
-  const toggleMenu = () => {
-    setSidebarOpen(!sidebarOpen);
-  };
-
   return (
-    <div className='searchpage'>
-      <Navbar menuOpen={sidebarOpen} toggleMenu={toggleMenu} />
-      <body className='searchpage'>
-      <div className="first-container">
-        <header>
+    <div className='find-medicine-page'>
+      <NewNavBar />
+      <div className='find-medicine-container'>
+        <header className='find-medicine-header'>
           <h1>Find Medicine</h1>
         </header>
-        <main>
-          <div className="search-bar-container">
+        <main className='find-medicine-main'>
+          <div className="find-medicine-search-bar-container">
             <input
               type="text"
               value={searchTerm}
               onChange={handleChange}
               onKeyDown={handleKeyDown}
               placeholder="Search medicine brand name"
-              className="search-bar"
+              className="find-medicine-search-bar"
             />
             {searchTerm && (
-              <button className="clear-button" onClick={handleClearSearch}>
+              <button className="find-medicine-clear-button" onClick={handleClearSearch}>
                 &times;
               </button>
             )}
           </div>
-          {suggestions.length > 0 && (
-            <ul className="suggestions">
-              {suggestions.map((suggestion, index) => (
-                <li
-                  key={index}
-                  onClick={() => handleSuggestionClick(suggestion)}
-                  className={index === activeSuggestionIndex ? 'active' : ''}
-                >
-                  {suggestion}
-                </li>
-              ))}
-            </ul>
-          )}
-          <button className="search-button" onClick={handleSearch}>
-            Search
-          </button>
-          {searchResults.nearYou && searchResults.nearYou.length > 0 && (
-            <div>
-              <h2>Near You</h2>
-              <ul className="search-results">
-                {searchResults.nearYou.map((result, index) => (
-                  <li key={index}>
-                    <h3>{result.name}</h3>
-                    <p>{`${result.location.street}, ${result.location.town}, ${result.location.district}, ${result.location.state}`}</p>
-                    <p>Working Time: {result.workingTime}</p>
-                  </li>
-                ))}
-              </ul>
+          {!searchTerm && !selectedMedicine && (
+            <div className="find-medicine-placeholder">
+              <img src="https://nordvpn.com/wp-content/uploads/blog-social-browser-vs-search-engine-1200x628-1.png" alt="Placeholder" className="placeholder-image" />
+              <h3>Please enter a medicine name to start your search.</h3>
             </div>
           )}
-          {searchResults.inYourDistrict && searchResults.inYourDistrict.length > 0 && (
-            <div>
-              <h2>Near You</h2>
-              <ul className="search-results">
-                {searchResults.inYourDistrict.map((result, index) => (
-                  <li key={index}>
-                    <h3>{result.name}</h3>
-                    <p>{`${result.location.street}, ${result.location.town}, ${result.location.district}, ${result.location.state}`}</p>
-                    <p>Working Time: {result.workingTime}</p>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          {searchTerm && (
+            <>
+              {suggestions.length > 0 && (
+                <ul className="find-medicine-suggestions">
+                  {suggestions.map((suggestion, index) => (
+                    <li
+                      key={index}
+                      onClick={() => handleSuggestionClick(suggestion)}
+                      className={index === activeSuggestionIndex ? 'find-medicine-active-suggestion' : ''}
+                    >
+                      {suggestion.name}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {selectedMedicine && (
+                <div className="find-medicine-dosages">
+                  <h3>Available Dosages:</h3>
+                  <ul>
+                    {selectedMedicine.dosages.map((dosage, index) => (
+                      <li key={index} className="find-medicine-dosage-item">
+                        {dosage.dosage} - ${dosage.cost}
+                      </li>
+                    ))}
+                  </ul>
+                  <MedicineSearchResults medicineId={selectedMedicine.id} />
+                </div>
+              )}
+            </>
           )}
         </main>
-        <footer>
+        <footer className='find-medicine-footer'>
           <p>Here's to your health and happiness, today and always.</p>
         </footer>
       </div>
-      </body>
     </div>
   );
 };

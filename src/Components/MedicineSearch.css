@@ -1,26 +1,45 @@
-/* styles.css */
 .medicine-search-results {
-    margin-top: 20px;
-  }
-  
-  .pharmacy-card {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: azure;
-  }
-  
-  .pharmacy-name {
-    font-weight: bold;
-  }
-  
-  .pharmacy-details {
-    margin-top: 5px;
-  }
-  
-  .pharmacy-contact {
-    font-style: italic;
-    color: #666;
-  }
-  
+  margin-top: 20px;
+}
+
+.pharmacy-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pharmacy-card {
+  width: 800px;
+  background-color: rgb(232, 239, 241);
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pharmacy-details {
+  flex: 1;
+}
+
+.pharmacy-image {
+  margin-left: 15px;
+}
+
+.pharmacy-image img {
+  width: 350px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.pharmacy-card h2 {
+  margin-top: 0;
+}
+
+.pharmacy-card p {
+  margin: 5px 0;
+}

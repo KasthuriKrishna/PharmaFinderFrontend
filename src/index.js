@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import FirstPage from './Home/FirstPage';
-import CreateList from './ListSearch/CreateList';
-import CusSignup from './LoginAndSignup/CusSignup'
-import Diagnosis from './ListSearch/Diagnosis';
-import PharmaHome from './Pharma/PharmaHome';
+import NewNav from './Components/NewNav'
+import SearchBar from './Home/SearchBar';
+import PromotionalBanners from './Home/Banners';
+import ProductSection from './Home/ProductSection';
+import CategorySection from './Home/CategorySection';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

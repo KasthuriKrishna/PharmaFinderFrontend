@@ -1,5 +1,11 @@
+body, html, root {
+  width: 100%;
+  height: 100%;
+}
+
 .stock-body {
   font-family: Arial, sans-serif;
+  background-color: #31707b;
   margin: 0;
   padding: 0;
   height: 100vh;
@@ -10,14 +16,13 @@
 .stock-section {
   flex: 1;
   padding: 20px;
-  background-color: #ddd;
+  background-color: #31707b;
 }
 
 .summary-cards {
   display: flex;
   justify-content: space-around;
   margin: 20px 0;
-  
 }
 
 .header {
@@ -61,12 +66,22 @@
 .product-table th,
 .product-table td {
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 12px;
   text-align: left;
 }
 
 .product-table th {
-  background-color: #f2f2f2;
+  background-color: #343a40; /* Header background color */
+  color: white;
+  text-transform: uppercase;
+}
+
+.product-table tr:nth-child(even) {
+  background-color: #f8f9fa92;  /* Alternate row color */
+}
+
+.product-table tr:nth-child(odd) {
+  background-color: #ffffffcc /* Alternate row color */
 }
 
 .product-name {
@@ -76,8 +91,8 @@
 }
 
 .product-name img {
-  width: 30px;
-  height: 30px;
+  width: 50px;
+  height: 50px;
 }
 
 .status-active {
@@ -97,7 +112,6 @@
 
 .table-container {
   margin-bottom: 20px;
-
 }
 
 .stock-cards {
@@ -139,86 +153,11 @@
 @keyframes blink {
   0%,
   100% {
-    border-color: #ff6666;
+    border-color: #f90000;
   }
   50% {
     border-color: #ffcccc;
   }
-}
-
-/* New Styles for Tables */
-.product-table th {
-  background-color: #007bff;
-  color: white;
-}
-
-.product-table tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-.product-table tr:hover {
-  background-color: #ddd;
-}
-
-.product-table .product-name img {
-  width: 50px;
-  height: 50px;
-}
-
-.product-table .status-active {
-  background-color: #28a745;
-}
-
-.product-table .status-inactive {
-  background-color: #dc3545;
-  color: white;
-}
-
-.product-table td, .product-table th {
-  padding: 12px;
-}
-
-.product-table th {
-  background-color: #343a40;
-  color: white;
-  text-transform: uppercase;
-}
-
-.product-table tr:nth-child(even) {
-  background-color: #f8f9fa;
-}
-
-.product-table tr:hover {
-  background-color: #e9ecef;
-}
-
-.product-table .product-name img {
-  width: 50px;
-  height: 50px;
-}
-
-.product-table .status-active {
-  background-color: #28a745;
-  color: white;
-}
-
-.product-table .status-inactive {
-  background-color: #dc3545;
-  color: white;
-}
-
-.product-table .actions button {
-  margin-right: 5px;
-  padding: 5px 10px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-}
-
-.product-table .actions button:hover {
-  background-color: #0056b3;
 }
 
 /* New Styles for Recently Added and Highest Selling Tables */
@@ -230,21 +169,21 @@
 
 #recently-added th, #highest-selling th, 
 #recently-added td, #highest-selling td {
-  border: 1px solid #ddd;
-  padding: 8px;
+  border: 1px solid #dddddde7;
+  padding: 12px;
   text-align: left;
 }
 
 #recently-added th, #highest-selling th {
-  background-color: #343a40;
+  background-color: #343a40; /* Header background color */
   color: white;
   text-transform: uppercase;
 }
 
 #recently-added tr:nth-child(even), #highest-selling tr:nth-child(even) {
-  background-color: #f8f9fa;
+  background-color: #f8f9fa92; /* Alternate row color */
 }
 
-#recently-added tr:hover, #highest-selling tr:hover {
-  background-color: #e9ecef;
+#recently-added tr:nth-child(odd), #highest-selling tr:nth-child(odd) {
+  background-color: #ffffffcc; /* Alternate row color */
 }

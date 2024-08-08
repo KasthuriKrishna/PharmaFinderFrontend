@@ -1,96 +1,83 @@
 import React, { useState, useEffect } from 'react';
 import './Diagnosis.css';
-import Navbar from '../Components/Navbar';
-import MedicineSearchResults from '../Components/MedicineSearchResults';
+import NewNav from '../Components/NewNav';
+import ListMedicineSearch from '../Components/ListMedicineSearch';
 import { useNavigate } from 'react-router-dom';
+import AxiosServices from '../Services/AxiosServices';
 
 const SearchSymptoms = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [symptomsData, setSymptomsData] = useState([]);
-  const [filteredSymptoms, setFilteredSymptoms] = useState([]);
-  const [selectedSymptom, setSelectedSymptom] = useState(null);
-  const [selectedTablets, setSelectedTablets] = useState([]);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [medicines, setMedicines] = useState([]);
+  const [selectedMedicines, setSelectedMedicines] = useState([]);
   const [showResults, setShowResults] = useState(false);
-  const [showSearchButton, setShowSearchButton] = useState(false);
-
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const user = JSON.parse(localStorage.getItem('user'));
+  const userPincode = user ? user.pincode : null;
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('/Symptoms.json')
-      .then((response) => response.json())
-      .then((data) => setSymptomsData(data))
-      .catch((error) => console.error('Error fetching symptoms data:', error));
+    const fetchCategories = async () => {
+      try {
+        const data = await AxiosServices.fetchCategories();
+        setCategories(data);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+
+    fetchCategories();
   }, []);
 
   useEffect(() => {
-    if (searchTerm === '') {
-      setFilteredSymptoms([]);
-    } else {
-      const filtered = symptomsData.filter(symptom =>
-        symptom.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setFilteredSymptoms(filtered);
+    if (selectedCategory) {
+      const fetchMedicines = async () => {
+        try {
+          const data = await AxiosServices.fetchMedicinesByCategory(selectedCategory);
+          setMedicines(data);
+        } catch (error) {
+          console.error('Error fetching medicines:', error);
+        }
+      };
+
+      fetchMedicines();
     }
-  }, [searchTerm, symptomsData]);
+  }, [selectedCategory]);
 
-  useEffect(() => {
-    console.log('Selected Tablets:', selectedTablets);
-  }, [selectedTablets]);
-
-  const handleSymptomClick = (symptom) => {
-    setSelectedSymptom(symptom);
-    setSearchTerm('');
-    setFilteredSymptoms([]);
-    setShowSearchButton(false);
-  };
-
-  const formatDosage = (dosageString) => {
-    const match = dosageString.match(/(\d+mg)/);
-    return match ? match[0] : 'Dosage not available';
-  };
-
-  const handleAddTablet = (tablet) => {
-    setSelectedTablets((prevSelectedTablets) => {
-      const existingTablet = prevSelectedTablets.find(t => t.name === tablet.name);
-      const formattedDosage = formatDosage(tablet.dosage);
-
-      if (existingTablet) {
-        return prevSelectedTablets.map(t =>
-          t.name === tablet.name ? { ...t, quantity: t.quantity + 1 } : t
+  const handleAddMedicine = (medicine, dosageId) => {
+    setSelectedMedicines((prevSelectedMedicines) => {
+      const existingMedicine = prevSelectedMedicines.find(m => m.id === medicine.id);
+      if (existingMedicine) {
+        return prevSelectedMedicines.map(m =>
+          m.id === medicine.id ? { ...m, quantity: m.quantity + 1 } : m
         );
       } else {
-        setShowSearchButton(true); // Show the button after adding a tablet
-        return [...prevSelectedTablets, { name: tablet.name, selectedDosage: formattedDosage, quantity: 1 }];
+        const selectedDosage = medicine.dosages.find(d => d.id === dosageId);
+        return [...prevSelectedMedicines, { ...medicine, selectedDosage, quantity: 1 }];
       }
     });
   };
 
-  const handleIncrement = (tablet) => {
-    setSelectedTablets((prevSelectedTablets) => 
-      prevSelectedTablets.map(t =>
-        t.name === tablet.name ? { ...t, quantity: t.quantity + 1 } : t
+  const handleIncrement = (medicine) => {
+    setSelectedMedicines((prevSelectedMedicines) =>
+      prevSelectedMedicines.map(m =>
+        m.id === medicine.id ? { ...m, quantity: m.quantity + 1 } : m
       )
     );
   };
 
-  const handleDecrement = (tablet) => {
-    setSelectedTablets((prevSelectedTablets) => 
-      prevSelectedTablets.map(t =>
-        t.name === tablet.name && t.quantity > 1 ? { ...t, quantity: t.quantity - 1 } : t
+  const handleDecrement = (medicine) => {
+    setSelectedMedicines((prevSelectedMedicines) =>
+      prevSelectedMedicines.map(m =>
+        m.id === medicine.id && m.quantity > 1 ? { ...m, quantity: m.quantity - 1 } : m
       )
     );
   };
 
-  const handleRemove = (tablet) => {
-    setSelectedTablets((prevSelectedTablets) =>
-      prevSelectedTablets.filter(t => t.name !== tablet.name)
+  const handleRemove = (medicine) => {
+    setSelectedMedicines((prevSelectedMedicines) =>
+      prevSelectedMedicines.filter(m => m.id !== medicine.id)
     );
-  };
-
-  const getTabletQuantity = (tablet) => {
-    const selectedTablet = selectedTablets.find(t => t.name === tablet.name);
-    return selectedTablet ? selectedTablet.quantity : 0;
   };
 
   const handleSearch = () => {
@@ -98,11 +85,11 @@ const SearchSymptoms = () => {
   };
 
   const handlePost = () => {
-    if (selectedTablets.length === 0) {
-      alert('Please select at least one tablet.');
+    if (selectedMedicines.length === 0) {
+      alert('Please select at least one medicine.');
       return;
     }
-    navigate('/post', { state: { selectedMedicines: selectedTablets } });
+    navigate('/post', { state: { selectedMedicines } });
   };
 
   const toggleMenu = () => {
@@ -110,144 +97,132 @@ const SearchSymptoms = () => {
   };
 
   return (
-    <div className="search-symptoms-page">
-      <Navbar menuOpen={sidebarOpen} toggleMenu={toggleMenu} />
-      <div className="diagnosis-container">
-        <div className="search-bar">
-          <input
-            type="text"
-            className="search-input"
-            placeholder="Search by Symptoms"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </div>
-        {filteredSymptoms.length > 0 && (
-          <div className="suggestions">
-            {filteredSymptoms.map((symptom) => (
-              <div
-                key={symptom.name}
-                className="suggestion"
-                onClick={() => handleSymptomClick(symptom)}
-              >
-                {symptom.name}
-              </div>
-            ))}
+    <>
+      <NewNav />
+      <div className="search-symptoms-page">
+        <div className="diagnosis-container">
+          <div className="dg-search-bar">
+            <select
+              className="search-input"
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              value={selectedCategory || ''}
+            >
+              <option value="">Select a Category</option>
+              {categories.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
           </div>
-        )}
-        {selectedSymptom ? (
-          <div className="symptom-details">
-            <h2>{selectedSymptom.name}</h2>
-            <div className="grid">
-              {selectedSymptom.tablets.map((tablet, index) => (
-                <div className="tablet-card" key={index}>
-                  <h3>{tablet.name}</h3>
-                  <p>{tablet.description}</p>
-                  <p><strong>Dosage:</strong> {tablet.dosage}</p>
-                  {getTabletQuantity(tablet) > 0 ? (
-                    <div className="quantity-controls">
-                      <button
-                        className="decrement-btn"
-                        onClick={() => handleDecrement(tablet)}
-                        disabled={getTabletQuantity(tablet) === 1}
-                      >
-                        -
-                      </button>
-                      <span>{getTabletQuantity(tablet)}</span>
-                      <button
-                        className="increment-btn"
-                        onClick={() => handleIncrement(tablet)}
-                      >
-                        +
-                      </button>
-                      <button
-                        className="remove-btn"
-                        onClick={() => handleRemove(tablet)}
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  ) : (
-                    <button
-                      className="add-btn"
-                      onClick={() => handleAddTablet(tablet)}
-                    >
-                      Add
-                    </button>
-                  )}
+          <br/>
+          {!selectedCategory && (
+            
+            <div className="sys-prefix-common-symptoms">
+  <h2>Common Symptoms</h2>
+  <div className="sys-prefix-grid">
+    <div className="sys-prefix-symptom-card odd">
+      <img src="https://5.imimg.com/data5/SELLER/Default/2023/6/319597573/MH/NE/SR/135658020/ibuprofen-400-mg-bp-tablets.jpg" alt="Body pain" />
+      <div className="sys-prefix-symptom-info">
+        <p>Body pain / Fever</p>
+        <p className="sys-prefix-description">Often indicates an underlying infection or inflammation in the body.</p>
+      </div>
+    </div>
+    <div className="sys-prefix-symptom-card even">
+      <div className="sys-prefix-symptom-info">
+        <p>Stomach Pain</p>
+        <p className="sys-prefix-description">Can be caused by various digestive issues, including gastritis or ulcers.</p>
+      </div>
+      <img src="https://www.netmeds.com/images/product-v1/600x600/387780/vomistop_10mg_tablet_10_s_0.jpg" alt="Stomach Pain" />
+    </div>
+    <div className="sys-prefix-symptom-card odd">
+      <img src="https://5.imimg.com/data5/SELLER/Default/2023/1/DZ/WH/DE/138308991/antibiotic-tablets.jpg" alt="Allergy" />
+      <div className="sys-prefix-symptom-info">
+        <p>Allergy</p>
+        <p className="sys-prefix-description">A reaction by the immune system to substances that are normally harmless.</p>
+      </div>
+    </div>
+    <div className="sys-prefix-symptom-card even">
+      <div className="sys-prefix-symptom-info">
+        <p>Viral/Bacterial Infections</p>
+        <p className="sys-prefix-description">These can cause a range of symptoms, from mild to severe, requiring medical attention.</p>
+      </div>
+      <img src="https://5.imimg.com/data5/SELLER/Default/2023/1/DZ/WH/DE/138308991/antibiotic-tablets.jpg" alt="Viral/Bacterial Infections" />
+    </div>
+    <div className="sys-prefix-symptom-card odd">
+      <img src="https://5.imimg.com/data5/SELLER/Default/2023/6/319597573/MH/NE/SR/135658020/ibuprofen-400-mg-bp-tablets.jpg" alt="Headache" />
+      <div className="sys-prefix-symptom-info">
+        <p>Headache</p>
+        <p className="sys-prefix-description">A common condition that can be caused by stress, fatigue, or other factors.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+          )}
+
+          {selectedCategory && medicines.length > 0 && (
+            <div className="medicine-list">
+              {medicines.map((medicine) => (
+                <div key={medicine.id} className="dg-medicine-card">
+                  <img src="https://as1.ftcdn.net/v2/jpg/01/85/92/06/1000_F_185920604_iOlmrlIMArPqApAxQgANl9kY4Ze38eah.jpg" alt={medicine.name} />
+                  <h3>{medicine.name}</h3>
+                  <p>Brand: {medicine.brand}</p>
+                  <p>Category: {medicine.category}</p>
+                  <p>Form: {medicine.form}</p>
+    
+                  <select
+                    onChange={(e) => {
+                      const selectedDosageId = parseInt(e.target.value, 10);
+                      handleAddMedicine(medicine, selectedDosageId);
+                    }}
+                  >
+                    <option value="">Select Dosage</option>
+                    {medicine.dosages.map((dosage) => (
+                      <option key={dosage.id} value={dosage.id}>
+                        {dosage.dosage} - ₹ {dosage.cost}
+                      </option>
+                    ))}
+                  </select>
+                  <button className="search-btn" onClick={() => handleAddMedicine(medicine, medicine.dosages[0].id)}>Add to Cart</button>
                 </div>
               ))}
             </div>
-          </div>
-        ) : (
-          <>
-            <h2>Common Symptoms</h2>
-            <div className="grid">
-              <div className="symptom-card">
-                <img src="https://5.imimg.com/data5/SELLER/Default/2023/6/319597573/MH/NE/SR/135658020/ibuprofen-400-mg-bp-tablets.jpg" alt="Body pain" />
-                <p>Body pain</p>
-              </div>
-              <div className="symptom-card">
-                <img src="https://www.netmeds.com/images/product-v1/600x600/387780/vomistop_10mg_tablet_10_s_0.jpg" alt="Vomiting" />
-                <p>Vomiting</p>
-              </div>
-              <div className="symptom-card">
-                <img src="https://5.imimg.com/data5/SELLER/Default/2023/1/DZ/WH/DE/138308991/antibiotic-tablets.jpg" alt="Fever" />
-                <p>Fever</p>
-              </div>
+          )}
+
+          {selectedMedicines.length > 0 && (
+            <div className="selected-medicines">
+              <h2>Selected Medicines</h2>
+              <ul>
+                {selectedMedicines.map((medicine) => (
+                  <li key={medicine.id}>
+                    <div className="dg-medicine-card">
+                      <img src="https://as1.ftcdn.net/v2/jpg/01/85/92/06/1000_F_185920604_iOlmrlIMArPqApAxQgANl9kY4Ze38eah.jpg" alt={medicine.name} />
+                      <h3>{medicine.name}</h3>
+                      <p>Brand: {medicine.brand}</p>
+                      <p>Category: {medicine.category}</p>
+                      <p>Form: {medicine.form}</p>
+                      <p>Cost: ${medicine.cost.toFixed(2)}</p>
+                      <p>Dosage: {medicine.selectedDosage.strength}</p>
+                      <div className="quantity-controls">
+                        <button onClick={() => handleIncrement(medicine)}>+</button>
+                        <span>{medicine.quantity}</span>
+                        <button onClick={() => handleDecrement(medicine)}>-</button>
+                        <button onClick={() => handleRemove(medicine)}>Remove</button>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
-          </>
-        )}
-        {selectedTablets.length > 0 && (
-          <div className="selected-tablets">
-            <h2 style={{color:"white"}}>Selected Tablets</h2>
-            <ul className="selected-tablets-list">
-              {selectedTablets.map((tablet, index) => (
-                <li key={index} className="selected-tablet-item">
-                  <span className="tablet-name">{tablet.name} - Dosage: {tablet.selectedDosage}</span>
-                  <div className="quantity-controls">
-                    <button
-                      className="decrement-btn"
-                      onClick={() => handleDecrement(tablet)}
-                      disabled={tablet.quantity === 1}
-                    >
-                      -
-                    </button>
-                    <span>{tablet.quantity}</span>
-                    <button
-                      className="increment-btn"
-                      onClick={() => handleIncrement(tablet)}
-                    >
-                      +
-                    </button>
-                    <button
-                      className="remove-btn"
-                      onClick={() => handleRemove(tablet)}
-                    >
-                      Remove
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-        {showSearchButton && selectedSymptom && selectedTablets.length > 0 && (
-          <button onClick={handleSearch} className="search-btn">Search the List</button>
-        )}
-        {showSearchButton && selectedSymptom && selectedTablets.length > 0 && (
-          <button onClick={handlePost} className="search-btn">Post the List</button>
-        )}
-        {showResults && (
-          <MedicineSearchResults
-            selectedTablets={selectedTablets}
-            street="123 Main St"
-            town="Springfield"
-            district="Springfield District"
-          />
-        )}
+          )}
+
+          <button className="search-btn" onClick={handlePost}>
+            Post
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -1,0 +1,67 @@
+.pharma-find{
+    height: 100vh;
+}
+.pharmacy-finder-container {
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  .pharmacy-finder-search-bar {
+    margin-bottom: 20px;
+  }
+  
+  .pharmacy-finder-search-bar input {
+    padding: 10px;
+    font-size: 16px;
+    width: 200px;
+    margin-right: 10px;
+  }
+  
+  .pharmacy-finder-search-bar button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .pharmacy-finder-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .pharmacy-finder-card {
+    width: 800px;
+    background-color: rgb(197, 234, 244);
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .pharmacy-finder-details {
+    flex: 1;
+  }
+  
+  .pharmacy-finder-image {
+    margin-left: 15px;
+  }
+  
+  .pharmacy-finder-image img {
+    width: 350px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  
+  .pharmacy-finder-card h2 {
+    margin-top: 0;
+  }
+  
+  .pharmacy-finder-card p {
+    margin: 5px 0;
+  }

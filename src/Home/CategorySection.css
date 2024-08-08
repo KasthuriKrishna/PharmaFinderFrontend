@@ -1,0 +1,27 @@
+.category-section {
+    padding: 20px;
+  }
+  
+  .categories {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .category {
+    width: 20%;
+    background-color: #f8f8f8;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .category-image {
+    height: 100px;
+    background-color: #ddd;
+    margin-bottom: 10px;
+  }
+  
+  .category p {
+    margin: 0;
+  }
+  

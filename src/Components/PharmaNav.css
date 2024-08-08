@@ -1,7 +1,7 @@
 .tabs {
   display: flex;
   justify-content: center;
-  background-color: #ffffff;
+  background-color:rgb(170, 202, 228);
   padding: 10px 0;
   margin-top: 64px; /* Height of the AppBar */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);

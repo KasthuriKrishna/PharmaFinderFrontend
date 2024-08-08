@@ -1,0 +1,40 @@
+.product-section {
+    padding: 20px;
+  }
+  
+  .products {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .product {
+    width: 30%;
+    background-color: #f8f8f8;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .product-image {
+    height: 100px;
+    background-color: #ddd;
+    margin-bottom: 10px;
+  }
+  
+  .product-info p {
+    margin: 5px 0;
+  }
+  
+  .product-info button {
+    padding: 5px 10px;
+    border: none;
+    background-color: #004f71;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .product-info button:hover {
+    background-color: #00334d;
+  }
+  

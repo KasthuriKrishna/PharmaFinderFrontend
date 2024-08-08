@@ -1,37 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CreateList.css';
-import Navbar from '../Components/Navbar';
-import MedicineSearchResults from '../Components/MedicineSearchResults';
+import NewNav from '../Components/NewNav';
+import ListMedicineSearch from '../Components/ListMedicineSearch';
+import AxiosService from '../Services/AxiosServices'; // Import the service
 
 const CreateList = () => {
   const [medicines, setMedicines] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [selectedMedicines, setSelectedMedicines] = useState([]);
-  const [pharmacies, setPharmacies] = useState([]);
-  const [searchResults, setSearchResults] = useState([]);
-  const [showResults, setShowResults] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
   const [showWarning, setShowWarning] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   const navigate = useNavigate();
-
-  const userAddress = {
-    street: "456 Elm St",
-    town: "Springfield",
-    district: "Springfield District",
-    state: "Example State"
-  };
+  const user = JSON.parse(localStorage.getItem('user'));
+  const userPincode = user ? user.pincode : null;
 
   useEffect(() => {
-    fetch('/Listmedicine.json')
-      .then(response => response.json())
-      .then(data => setMedicines(data));
+    const fetchMedicines = async () => {
+      try {
+        const data = await AxiosService.fetchMedicines();
+        setMedicines(data);
+      } catch (error) {
+        console.error('Error fetching medicines:', error);
+      }
+    };
 
-    fetch('/pharmacies.json')
-      .then(response => response.json())
-      .then(data => setPharmacies(data));
+    fetchMedicines();
   }, []);
 
   const handleChange = (event) => {
@@ -51,7 +47,7 @@ const CreateList = () => {
     setSearchTerm('');
     setSuggestions([]);
     if (!selectedMedicines.some(med => med.name === suggestion.name)) {
-      setSelectedMedicines([...selectedMedicines, { ...suggestion, quantity: 1, selectedDosage: suggestion.dosages[0] }]);
+      setSelectedMedicines([...selectedMedicines, { ...suggestion, quantity: 1, selectedDosage: suggestion.dosages[0].id }]);
     }
   };
 
@@ -66,42 +62,8 @@ const CreateList = () => {
 
   const handleDosageChange = (index, event) => {
     const updatedMedicines = [...selectedMedicines];
-    updatedMedicines[index].selectedDosage = event.target.value;
+    updatedMedicines[index].selectedDosage = parseInt(event.target.value, 10);
     setSelectedMedicines(updatedMedicines);
-  };
-
-  const handleSearch = () => {
-    if (selectedMedicines.length === 0) {
-      setShowWarning(true);
-      return;
-    }
-    setShowWarning(false);
-
-    const filteredResults = pharmacies.filter(pharmacy =>
-      selectedMedicines.every(selectedMedicine =>
-        pharmacy.medicines.includes(selectedMedicine.name)
-      )
-    );
-
-    const categorizedResults = {
-      nearYou: [],
-      inYourDistrict: []
-    };
-
-    filteredResults.forEach(pharmacy => {
-      if (pharmacy.location.town === userAddress.town && pharmacy.location.street === userAddress.street) {
-        categorizedResults.nearYou.push(pharmacy);
-      } else if (pharmacy.location.district === userAddress.district) {
-        categorizedResults.inYourDistrict.push(pharmacy);
-      }
-    });
-
-    setSearchResults(categorizedResults);
-    setShowResults(true);
-
-    if (filteredResults.length === 0) {
-      alert("Oops!! No results found.");
-    }
   };
 
   const handlePost = () => {
@@ -118,8 +80,8 @@ const CreateList = () => {
   };
 
   return (
-    <div className='listbody'>
-      <Navbar menuOpen={sidebarOpen} toggleMenu={toggleMenu} />
+    <div >
+      <NewNav/>
       <div className="create-list-container">
         <header>
           <h1>Create List</h1>
@@ -130,10 +92,10 @@ const CreateList = () => {
             value={searchTerm}
             onChange={handleChange}
             placeholder="Search Medicine"
-            className="search-bar"
+            className="list-search-bar"
           />
           {suggestions.length > 0 && (
-            <ul className="suggestions">
+            <ul className="list-suggestions">
               {suggestions.map((suggestion, index) => (
                 <li key={index} onClick={() => handleSuggestionClick(suggestion)}>
                   {suggestion.name}
@@ -149,9 +111,9 @@ const CreateList = () => {
                   value={medicine.selectedDosage}
                   onChange={(event) => handleDosageChange(index, event)}
                 >
-                  {medicine.dosages.map((dosage, dosageIndex) => (
-                    <option key={dosageIndex} value={dosage}>
-                      {dosage}
+                  {medicine.dosages.map((dosage) => (
+                    <option key={dosage.id} value={dosage.id}>
+                      {dosage.dosage}
                     </option>
                   ))}
                 </select>
@@ -171,26 +133,19 @@ const CreateList = () => {
             </div>
           )}
           <div className="action-buttons">
-            <button className="search-button" onClick={handleSearch}>
+            <button className="search-button">
               Search
             </button>
             <button className="post-button" onClick={handlePost}>
               Post
             </button>
           </div>
-          {showResults && (
-            <MedicineSearchResults
-              selectedTablets={selectedMedicines}
-              street={userAddress.street}
-              town={userAddress.town}
-              district={userAddress.district}
-              pharmacies={pharmacies}
-            />
+          {userPincode ? (
+            <ListMedicineSearch selectedMedicines={selectedMedicines} userPincode={userPincode} />
+          ) : (
+            <p>Please set your pincode in local storage.</p>
           )}
         </main>
-        <footer>
-          <p>Fill all the details given in the form</p>
-        </footer>
       </div>
     </div>
   );

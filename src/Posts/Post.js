@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
 import './Post.css';
+import axios from 'axios';
 
 const Post = () => {
   const location = useLocation();
@@ -10,7 +11,28 @@ const Post = () => {
   const [file, setFile] = useState(null);
   const [filePreview, setFilePreview] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [orderTitle, setOrderTitle] = useState(''); // New state for order title
+  const [orderTitle, setOrderTitle] = useState('');
+  const [userPincode, setUserPincode] = useState('');
+  const [pharmacies, setPharmacies] = useState([]);
+
+  useEffect(() => {
+    // Fetch user data from local storage and parse it
+    const storedUserData = localStorage.getItem('user');
+    const userData = storedUserData ? JSON.parse(storedUserData) : null;
+
+    if (userData) {
+      setUserPincode(userData.pincode || '');
+      
+      // Fetch pharmacies with the same pincode
+      axios.get(`http://localhost:8080/api/pharmacies/by-pincode?pincode=${userData.pincode}`)
+        .then(response => {
+          setPharmacies(response.data);
+        })
+        .catch(error => {
+          console.error('Error fetching pharmacies:', error);
+        });
+    }
+  }, []);
 
   const handleFileChange = (event) => {
     const uploadedFile = event.target.files[0];
@@ -34,9 +56,37 @@ const Post = () => {
       return;
     }
 
-    // Show alert and navigate on confirmation
-    if (window.confirm('Post successful! You can check the replies on the history page.')) {
-      navigate('/history');
+    const currentDate = new Date().toISOString();
+    const storedUserData = localStorage.getItem('user');
+    const userData = storedUserData ? JSON.parse(storedUserData) : null;
+
+    if (userData && userData.id && pharmacies.length > 0) {
+      selectedMedicines.forEach(medicine => {
+        pharmacies.forEach(pharmacy => {
+          const orderData = {
+            user: { id: userData.id },
+            pharmacy: { id: pharmacy.id },
+            medicine: { id: medicine.id },
+            quantity: medicine.quantity,
+            orderDate: currentDate
+          };
+
+          axios.post('http://localhost:8080/api/order-histories', orderData)
+            .then(response => {
+              console.log('Order placed successfully:', response.data);
+            })
+            .catch(error => {
+              console.error('Error placing order:', error);
+            });
+        });
+      });
+
+      // Show alert and navigate on confirmation
+      if (window.confirm('Post successful! You can check the replies on the history page.')) {
+        navigate('/history');
+      }
+    } else {
+      alert('User ID or pharmacies data not found.');
     }
   };
 
@@ -54,7 +104,7 @@ const Post = () => {
         <ul>
           {selectedMedicines.map((medicine, index) => (
             <li key={index} className="medicine-card">
-              <strong>{medicine.name}</strong>: {medicine.selectedDosage}, Quantity: {medicine.quantity}
+              <strong>{medicine.name}</strong>: {medicine.selectedDosage ? medicine.selectedDosage.dosage : 'N/A'}, Quantity: {medicine.quantity}
             </li>
           ))}
         </ul>

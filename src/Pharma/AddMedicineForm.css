@@ -1,0 +1,93 @@
+body, html, root {
+  width: 100%;
+  height: 100%;
+}
+
+.addmeddiv {
+  background: linear-gradient(135deg, #162c36, #42859c, #5fc0ea);
+}
+
+.add-medicine-form {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  background-color: #c1e2eb;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+}
+
+.form-title {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  margin-bottom: 5px; /* Reduced margin to make labels closer to inputs */
+  font-weight: bold; /* Optional: Make labels stand out */
+}
+
+.form-input {
+  width: calc(100% - 20px); /* Full width minus padding */
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 15px; /* Add space below each input */
+}
+
+.dosage-container {
+  margin-bottom: 15px;
+  display: flex; /* Align dosage inputs horizontally */
+  gap: 10px; /* Space between dosage inputs */
+}
+
+.dosage-label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold; /* Optional: Make labels stand out */
+}
+
+.dosage-input {
+  flex: 1; /* Fill available space */
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.add-dosage-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  
+  width: 30%;
+}
+
+.add-dosage-button:hover {
+  background-color: #0056b3;
+}
+
+.submit-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: auto; 
+  width: 30%; /* Full width button */
+}
+
+.submit-button:hover {
+  background-color: #218838;
+}

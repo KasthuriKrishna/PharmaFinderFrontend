@@ -1,0 +1,68 @@
+/* ListMedicineSearch.css */
+
+.listsearch-medicine-search-results {
+  margin-top: 20px;
+}
+
+.listsearch-pharmacy-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.listsearch-pharmacy-card {
+  width: 800px;
+  background-color: rgb(232, 239, 241);
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.listsearch-pharmacy-details {
+  flex: 1;
+}
+
+.listsearch-pharmacy-image {
+  margin-left: 15px;
+}
+
+.listsearch-pharmacy-image img {
+  width: 350px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.listsearch-pharmacy-card h2 {
+  margin-top: 0;
+}
+
+.listsearch-pharmacy-card p {
+  margin: 5px 0;
+}
+
+/* No results section */
+.listsearch-no-results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.noresults{
+  width: 400px;
+  height: 300px;
+  
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.listsearch-no-results p {
+  font-size: 18px;
+  color: #666;
+}
